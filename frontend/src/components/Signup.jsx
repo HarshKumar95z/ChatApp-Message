@@ -31,6 +31,7 @@ function Signup() {
     await axios
       .post("/api/user/signup", userInfo)
       .then((response) => {
+        console.log("answer", response);
         if (response.data) {
           toast.success("Signup successful");
         }
@@ -38,10 +39,15 @@ function Signup() {
         setAuthUser(response.data);
       })
       .catch((error) => {
-        if (error.response) {
-          toast.error("Error: " + error.response.data.error);
-        }
-      });
+      const message =
+        error.response?.data?.error ||
+        error.response?.data?.message ||
+        error.message ||
+        "Something went wrong";
+      toast.error("Error: " + message);
+      console.log("error", error)
+    });
+
   };
   return (
     <>

@@ -32,6 +32,7 @@ function Login() {
       .catch((error) => {
         if (error.response) {
           toast.error("Error: " + error.response.data.error);
+          console.log("error", error)
         }
       });
   };

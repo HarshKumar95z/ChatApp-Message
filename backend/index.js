@@ -15,6 +15,8 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
 
+const _dirname = path.resolve();
+
 const PORT = process.env.PORT || 3001;
 const URI = process.env.MONGODB_URI;
 
@@ -25,20 +27,28 @@ try {
     console.log(error);
 }
 
+app.get("/", (req,res)=>{
+    res.json("working")
+})
+
 //routes
 app.use("/api/user", userRoute);
 app.use("/api/message", messageRoute);
 
+app.use(express.static(path.join(_dirname, "/frontend/dist")))
+app.get('*', (_,res)=>{
+    res.sendFile(path.resole(_dirname, "frontend", "dist", "index.html"))
+})
 
 // code for deployment
 
-if(process.env.NODE_ENV === 'production'){
-    const dirPath = path.resolve();
-    app.use(express.static("./frontend/dist"));
-    app.get('*', (req,res) => {
-        res.sendFile(path.resolve(dirPath, './frontend/dist', 'index.html'))
-    })
-}
+// if(process.env.NODE_ENV === 'production'){
+//     const dirPath = path.resolve();
+//     app.use(express.static("./frontend/dist"));
+//     app.get('*', (req,res) => {
+//         res.sendFile(path.resolve(dirPath, './frontend/dist', 'index.html'))
+//     })
+// }
 
 
 
