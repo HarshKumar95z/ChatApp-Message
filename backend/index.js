@@ -27,9 +27,6 @@ try {
     console.log(error);
 }
 
-app.get("/", (req,res)=>{
-    res.json("working")
-})
 
 //routes
 app.use("/api/user", userRoute);
