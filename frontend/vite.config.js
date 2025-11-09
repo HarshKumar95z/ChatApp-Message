@@ -5,7 +5,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/api': 'http://localhost:5002', // your backend URL
+      '/api': 'https://chatapp-message-8.onrender.com', // your backend URL
     },
   },
 })
